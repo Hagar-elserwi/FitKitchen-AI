@@ -1,11 +1,35 @@
 import os
 from dotenv import load_dotenv
+import streamlit as st
 
+# ==========================================
+# 1. Auto-generate Streamlit Theme Config
+# ==========================================
+if not os.path.exists(".streamlit"):
+    os.makedirs(".streamlit")
+    
+if not os.path.exists(".streamlit/config.toml"):
+    with open(".streamlit/config.toml", "w", encoding="utf-8") as f:
+        f.write("""
+[theme.light]
+primaryColor = "#E07A5F"
+backgroundColor = "#FDF8F5"
+secondaryBackgroundColor = "#F7EBE8"
+textColor = "#4A2C2A"
+
+[theme.dark]
+primaryColor = "#E63946"
+backgroundColor = "#0A0A0A"
+secondaryBackgroundColor = "#121212"
+textColor = "#F1FAEE"
+""")
+
+# ==========================================
+# 2. Environment & App Setup
+# ==========================================
 # add tokens 
 load_dotenv() 
 hf_token = os.getenv("GROQ_API_KEY")
-
-import streamlit as st
 
 # Page configuration
 st.set_page_config(
@@ -17,98 +41,45 @@ st.set_page_config(
 # Sidebar settings
 lang = st.sidebar.radio("Language / اللغة", ["English", "العربية"])
 
-# CSS Styling inspired by "Bistro Bliss" and modern food UI
+# ==========================================
+# 3. Clean CSS (Fonts & Shapes ONLY)
+# ==========================================
 custom_css = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap');
 
-    /* =========================================
-       ☀️ LIGHT MODE (PASTEL ELEGANCE)
-       ========================================= */
-    .stApp, header {
-        background-color: #FDF8F5 !important; /* Soft Pastel Peach */
-    }
-    [data-testid="stSidebar"] {
-        background-color: #F7EBE8 !important; /* Soft Pastel Rose/Beige */
-    }
     h1, h2, h3 {
         font-family: 'Playfair Display', serif !important;
-        color: #4A2C2A !important; /* Elegant Deep Brown */
     }
-    p, label, li, span, .stMarkdown {
+    
+    /* Removed 'span' so Streamlit menu icons work perfectly */
+    p, label, li, .stMarkdown { 
         font-family: 'Nunito', sans-serif !important;
-        color: #5C4033 !important; /* Readable Brown */
     }
+    
     div[data-testid="stForm"] {
-        background-color: #FFFFFF !important;
-        border-top: 5px solid #F2CC8F !important; /* Pastel Yellow Accent */
         border-radius: 15px !important;
-        box-shadow: 0 8px 24px rgba(149, 157, 165, 0.1) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+        border-top: 5px solid #E07A5F !important;
     }
+    
     .stButton>button {
-        background-color: #E07A5F !important; /* Pastel Terracotta */
-        color: #FFFFFF !important;
-        border: none !important;
         border-radius: 20px !important;
         font-weight: 700 !important;
         padding: 10px 25px !important;
         transition: all 0.3s ease !important;
     }
+    
     .stButton>button:hover {
-        background-color: #D36A4F !important;
         transform: translateY(-2px) !important;
-    }
-    div[data-baseweb="select"] > div, textarea {
-        background-color: #FFFFFF !important;
-        border: 1px solid #E5D9D5 !important;
-        color: #4A2C2A !important;
-        border-radius: 8px !important;
-    }
-
-    /* =========================================
-       🌙 DARK MODE (BLACK & RED - CLEAN)
-       ========================================= */
-    @media (prefers-color-scheme: dark) {
-        .stApp, header {
-            background-color: #0A0A0A !important; /* Deep Black */
-        }
-        [data-testid="stSidebar"] {
-            background-color: #121212 !important; /* Dark Grey */
-        }
-        h1, h2, h3 {
-            color: #E63946 !important; /* Crimson Red for Headings */
-        }
-        /* Body text must be white/light grey for readability */
-        p, label, li, span, .stMarkdown {
-            color: #F1FAEE !important; /* Off-white for comfort */
-        }
-        div[data-testid="stForm"] {
-            background-color: #141414 !important;
-            border: 1px solid #2B0000 !important;
-            border-top: 5px solid #E63946 !important; /* Red Accent */
-            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.15) !important;
-        }
-        .stButton>button {
-            background-color: #E63946 !important; /* Red Button */
-            color: #FFFFFF !important;
-            border: none !important;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4) !important;
-        }
-        .stButton>button:hover {
-            background-color: #D90429 !important; /* Darker Red on hover */
-            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6) !important;
-        }
-        div[data-baseweb="select"] > div, textarea {
-            background-color: #1A1A1A !important;
-            border: 1px solid #333333 !important;
-            color: #FFFFFF !important;
-        }
     }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# Dictionary for multi-language support
+# ==========================================
+# 4. Translations Dictionary
+# ==========================================
 translations = {
     "English": {
         "title": "🍲 FitKitchen AI",
@@ -158,7 +129,9 @@ if lang == "العربية":
         </style>
     """, unsafe_allow_html=True)
 
-# UI Rendering
+# ==========================================
+# 5. UI Rendering & Form Logic
+# ==========================================
 st.markdown(f"<h1 style='text-align: center;'>{t['title']}</h1>", unsafe_allow_html=True)
 st.markdown(f"<p style='text-align: center; font-size: 1.2rem; margin-bottom: 2rem;'>{t['subtitle']}</p>", unsafe_allow_html=True)
 
