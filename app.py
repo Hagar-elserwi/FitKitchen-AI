@@ -20,40 +20,88 @@ lang = st.sidebar.radio("Language / اللغة", ["English", "العربية"])
 # CSS Styling inspired by "Bistro Bliss" and modern food UI
 custom_css = """
 <style>
-    /* light mode */
-    .stApp { 
-        background-color: #FDF6F5 !important; /* Pastel color */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap');
+
+    /* =========================================
+       ☀️ LIGHT MODE (PASTEL ELEGANCE)
+       ========================================= */
+    .stApp, header {
+        background-color: #FDF8F5 !important; /* Soft Pastel Peach */
     }
-    div[data-testid="stSidebar"] {
-        background-color: #F9EBEA !important;
+    [data-testid="stSidebar"] {
+        background-color: #F7EBE8 !important; /* Soft Pastel Rose/Beige */
     }
-    h1, h2, h3, p, label, .stMarkdown, li {
-        color: #2C1E16 !important;
+    h1, h2, h3 {
+        font-family: 'Playfair Display', serif !important;
+        color: #4A2C2A !important; /* Elegant Deep Brown */
+    }
+    p, label, li, span, .stMarkdown {
+        font-family: 'Nunito', sans-serif !important;
+        color: #5C4033 !important; /* Readable Brown */
     }
     div[data-testid="stForm"] {
         background-color: #FFFFFF !important;
-        border-top: 6px solid #F6C90E !important;
+        border-top: 5px solid #F2CC8F !important; /* Pastel Yellow Accent */
+        border-radius: 15px !important;
+        box-shadow: 0 8px 24px rgba(149, 157, 165, 0.1) !important;
     }
-    
-    /* dark mode */
+    .stButton>button {
+        background-color: #E07A5F !important; /* Pastel Terracotta */
+        color: #FFFFFF !important;
+        border: none !important;
+        border-radius: 20px !important;
+        font-weight: 700 !important;
+        padding: 10px 25px !important;
+        transition: all 0.3s ease !important;
+    }
+    .stButton>button:hover {
+        background-color: #D36A4F !important;
+        transform: translateY(-2px) !important;
+    }
+    div[data-baseweb="select"] > div, textarea {
+        background-color: #FFFFFF !important;
+        border: 1px solid #E5D9D5 !important;
+        color: #4A2C2A !important;
+        border-radius: 8px !important;
+    }
+
+    /* =========================================
+       🌙 DARK MODE (BLACK & RED - CLEAN)
+       ========================================= */
     @media (prefers-color-scheme: dark) {
-        .stApp, div[data-testid="stSidebar"], div[data-testid="stForm"] {
-            background-color: #000000 !important;
+        .stApp, header {
+            background-color: #0A0A0A !important; /* Deep Black */
         }
-        h1, h2, h3, p, label, .stMarkdown, li, div[data-baseweb="select"] > div, div[data-baseweb="textarea"] > textarea {
-            color: #FF0000 !important;
-            background-color: #000000 !important;
+        [data-testid="stSidebar"] {
+            background-color: #121212 !important; /* Dark Grey */
+        }
+        h1, h2, h3 {
+            color: #E63946 !important; /* Crimson Red for Headings */
+        }
+        /* Body text must be white/light grey for readability */
+        p, label, li, span, .stMarkdown {
+            color: #F1FAEE !important; /* Off-white for comfort */
         }
         div[data-testid="stForm"] {
-            border-top: 6px solid #FF0000 !important;
-            border-bottom: 1px solid #FF0000 !important;
-            border-left: 1px solid #FF0000 !important;
-            border-right: 1px solid #FF0000 !important;
+            background-color: #141414 !important;
+            border: 1px solid #2B0000 !important;
+            border-top: 5px solid #E63946 !important; /* Red Accent */
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.15) !important;
         }
         .stButton>button {
-            background-color: #FF0000 !important;
-            color: #000000 !important;
-            border: 2px solid #FF0000 !important;
+            background-color: #E63946 !important; /* Red Button */
+            color: #FFFFFF !important;
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4) !important;
+        }
+        .stButton>button:hover {
+            background-color: #D90429 !important; /* Darker Red on hover */
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6) !important;
+        }
+        div[data-baseweb="select"] > div, textarea {
+            background-color: #1A1A1A !important;
+            border: 1px solid #333333 !important;
+            color: #FFFFFF !important;
         }
     }
 </style>
