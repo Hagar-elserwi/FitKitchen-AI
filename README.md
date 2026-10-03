@@ -14,9 +14,9 @@ FitKitchen AI is a smart, multi-language web application designed for athletes a
 - **AI Model:** gpt-oss-20b (via Groq API)
 - **Environment Management:** python-dotenv
 
-## 🚀 How to Run Locally
+## 🚀 How to Run Locally   
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/yourusername/FitKitchen-AI.git](https://github.com/yourusername/FitKitchen-AI.git)
+   git clone [https://github.com/Hagar-elserwi/FitKitchen-AI.git](https://github.com/Hagar-elserwi/FitKitchen-AI)
    cd FitKitchen-AI
